@@ -1,0 +1,7 @@
+pyrogram
+tgcrypto
+requests
+opencv-python-headless
+paddleocr==2.0.1
+paddlepaddle
+https://github.com/Soebb/videocr-PaddleOCR/archive/master.zip
