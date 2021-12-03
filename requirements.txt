@@ -2,4 +2,4 @@ pyrogram
 tgcrypto
 requests
 opencv-python
-https://github.com/o/videocr-PaddleOCR/archive/master.zip
+https://github.com/oliverfei/videocr-PaddleOCR/archive/master.zip
