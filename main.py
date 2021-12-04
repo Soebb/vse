@@ -16,32 +16,6 @@ Bot = Client(
     api_hash = API_HASH
 )
 
-START_TXT = """
-Hi {}
-I am Subtitle Extractor Bot.
-
-> `I can extract hard-coded subtitle from videos.`
-
-Send me a video to get started.
-"""
-
-START_BTN = InlineKeyboardMarkup(
-        [[
-        InlineKeyboardButton("Source Code", url="https://github.com/Soebb/vidsub"),
-        ]]
-    )
-
-
-@Bot.on_message(filters.command(["start"]))
-async def start(bot, update):
-    text = START_TXT.format(update.from_user.mention)
-    reply_markup = START_BTN
-    await update.reply_text(
-        text=text,
-        disable_web_page_preview=True,
-        reply_markup=reply_markup
-    )
-
 @Bot.on_message(filters.private & filters.video)
 async def main(bot, m):
     await m.reply("`Downloading and Extracting...`", parse_mode='md')
