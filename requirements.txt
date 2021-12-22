@@ -2,4 +2,7 @@ pyrogram
 tgcrypto
 requests
 opencv-python
+pybind11
+importlib-metadata==4.2.0
+numpy==1.19.3 --user
 https://github.com/oliverfei/videocr-PaddleOCR/archive/master.zip
