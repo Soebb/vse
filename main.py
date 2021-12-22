@@ -4,7 +4,6 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
 
 
-# config vars
 BOT_TOKEN = " "
 API_ID = " "
 API_HASH = " "
