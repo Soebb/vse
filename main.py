@@ -5,14 +5,16 @@ from telegram.ext import Updater, MessageHandler, CallbackQueryHandler, Callback
 
 
 BOT_TOKEN = " "
+
 vdir = "
+main = vdir.rsplit('/', 1)[1] + '\\'
 
 def start(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /start is issued."""
     keyboard = []
     keyboard.append(refresh_button)
     try:
-        for file in glob.glob(vdir):
+        for file in glob.glob(vdir+'/*'):
             if file.endswith(('.ts', '.mp4', '.mkv')):
                 keyboard.append(
                     [
