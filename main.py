@@ -6,7 +6,7 @@ from telegram.ext import Updater, MessageHandler, CallbackQueryHandler, Callback
 
 BOT_TOKEN = " "
 
-vdir = "
+vdir = "C:/dlmacvin/1aa"
 main = vdir.rsplit('/', 1)[1] + '\\'
 refresh_button = [
     InlineKeyboardButton(
