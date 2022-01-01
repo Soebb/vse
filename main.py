@@ -39,6 +39,29 @@ def start(update: Update, context: CallbackContext) -> None:
 
 
 
+def button(update: Update, context: CallbackContext) -> None:
+    """Parses the CallbackQuery and updates the message text."""
+    query = update.callback_query
+    if query.data == "refresh":
+        keyboard = []
+        keyboard.append(refresh_button)
+        try:
+            for file in glob.glob(vdir+'/*'):
+                if file.endswith(('.ts', '.mp4', '.mkv')):
+                    keyboard.append(
+                        [
+                            InlineKeyboardButton(
+                                text=file.rsplit('/', 1)[1].replace(main, ''),
+                                callback_data=file.rsplit('/', 1)[1].replace(main, '')
+                            )
+                        ]
+                    )
+        except Exception as e:
+            print(e)
+            return
+        keyboard.append(refresh_button)
+        query.edit_message_text(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
+        return
 
     output = input + '.srt'
     #if __name__ == '__main__':  # This check is mandatory for Windows.
