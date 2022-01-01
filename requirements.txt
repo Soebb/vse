@@ -1,5 +1,4 @@
-pyrogram
-tgcrypto
+python-telegram-bot
 requests
 opencv-python
 pybind11
