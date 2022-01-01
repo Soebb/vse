@@ -8,6 +8,12 @@ BOT_TOKEN = " "
 
 vdir = "
 main = vdir.rsplit('/', 1)[1] + '\\'
+refresh_button = [
+    InlineKeyboardButton(
+        text='Refresh List',
+        callback_data='refresh'
+    )
+]
 
 def start(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /start is issued."""
