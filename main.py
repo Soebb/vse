@@ -62,11 +62,11 @@ def button(update: Update, context: CallbackContext) -> None:
         keyboard.append(refresh_button)
         query.edit_message_text(text="Which one?", reply_markup=InlineKeyboardMarkup(keyboard))
         return
-
-    output = input + '.srt'
+    input = vdir + '/' + query.data
+    output = 'subs/' + query.data + '.srt'
     #if __name__ == '__main__':  # This check is mandatory for Windows.
     save_subtitles_to_file(input, output, lang='fa', time_start='0:00', time_end='', conf_threshold=75, sim_threshold=80, use_fullframe=False, det_model_dir=None, rec_model_dir=None, use_gpu=False, brightness_threshold=None, similar_image_threshold=100, similar_pixel_threshold=25, frames_to_skip=1, crop_x=None, crop_y=None, crop_width=None, crop_height=None)
-    
+    update.effective_message.reply_text(text="saved.\n\n output path: subs/"+output)
 
 
 if __name__=='__main__':
