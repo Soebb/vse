@@ -1,9 +1,11 @@
 from videocr import save_subtitles_to_file
-import os
+import os, glob
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram.ext import Updater, MessageHandler, CallbackQueryHandler, CallbackContext, Filters
 
 
 BOT_TOKEN = " "
-
+vdir = "
 
 def start(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /start is issued."""
