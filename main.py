@@ -5,7 +5,7 @@ import os
 
 
 # config vars
-BOT_TOKEN = "
+BOT_TOKEN = "5065948056:AAHGgRzr5XNOC6-ImKNoVqLtqSATm6BdAho"
 API_ID = "2421254"
 API_HASH = "bc8ee680fd4f2720d3a24e43831c90b1"
 
