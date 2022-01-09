@@ -1,7 +1,5 @@
 python-telegram-bot
-requests
-opencv-python
+pyrogram
+tgcrypto
 pybind11
-importlib-metadata==4.2.0
-numpy==1.19.3
 https://github.com/oliverfei/videocr-PaddleOCR/archive/master.zip
