@@ -5,9 +5,9 @@ import os
 
 
 # config vars
-BOT_TOKEN = "5065948056:AAHGgRzr5XNOC6-ImKNoVqLtqSATm6BdAho"
-API_ID = "2421254"
-API_HASH = "bc8ee680fd4f2720d3a24e43831c90b1"
+BOT_TOKEN = os.environ.get('BOT_TOKEN')
+API_ID = os.environ.get('API_ID')
+API_HASH = os.environ.get('API_HASH')
 
 Bot = Client(
     "VsubBot",
