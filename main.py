@@ -63,8 +63,11 @@ LANG="fas"
 
 @Bot.on_message(filters.private & (filters.video | filters.document))
 async def main(bot, m):
-    if not os.path.isdir("temp/"):
-        os.makedirs("temp/")
+    try:
+        shutil.rmtree("temp/")
+    except:
+        pass
+    os.makedirs("temp/")
     media = m.video or m.document
     ms = await m.reply("downloading")
     await m.download("temp/vid.mp4")
@@ -145,7 +148,6 @@ async def main(bot, m):
 
     f.close
     await bot.send_document(chat_id=m.chat.id, document="temp/srt.srt", file_name=media.file_name.rsplit('.', 1)[0]+".srt")
-    shutil.rmtree("temp/")
 
 
 Bot.run()
