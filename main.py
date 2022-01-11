@@ -61,17 +61,25 @@ async def cancel_progress(_, m):
 #language
 LANG="fas"
 
-@Bot.on_message(filters.private & filters.video)
+@Bot.on_message(filters.private & (filters.video | filters.document))
 async def main(bot, m):
+    media = m.video or m.document
     ms = await m.reply("downloading")
     await m.download("temp/vid.mp4")
+    await ms.edit("`Now Extracting..`\n\n for cancel progress, send /cancel", parse_mode='md')
+    if m.video:
+        duration = m.video.duration
+    else:
+        video_info = subprocess.check_output(f'ffprobe -v quiet -show_streams -select_streams v:0 -of json "{file_dl_path}"', shell=True).decode()
+        fields = json.loads(video_info)['streams'][0]
+        duration = int(fields['duration'].split(".")[0])
     sub_count = 0
     repeated_count = 0
     last_text = " "
     duplicate = True
     lastsub_time = 0
-    time = m.video.duration
-    intervals = [round(num, 2) for num in np.linspace(0,m.video.duration,(m.video.duration-0)*int(1/0.1)+1).tolist()]
+    intervals = [round(num, 2) for num in np.linspace(0,duration,(duration-0)*int(1/0.1)+1).tolist()]
+    time = duration
     # Extract frames every 100 milliseconds for ocr
     for interval in intervals:
         command = os.system(f'ffmpeg -ss {interval} -i "{file_dl_path}" -pix_fmt yuvj422p -vframes 1 -q:v 2 -y temp/output.jpg')
@@ -119,7 +127,7 @@ async def main(bot, m):
             last_text = text
 
         # Write the last dialogue
-        if interval == m.video.duration:
+        if interval == duration:
             ftime = str(datetime.datetime.fromtimestamp(lastsub_time)+datetime.timedelta(hours=0)).split(' ')[1][:12]
             ttime = str(datetime.datetime.fromtimestamp(lastsub_time+10)+datetime.timedelta(hours=0)).split(' ')[1][:12]
             ftime = f"{ftime}.000" if not "." in ftime else ftime
@@ -128,7 +136,7 @@ async def main(bot, m):
             f.write(str(sub_count+1) + "\n" + ftime + " --> " + ttime + "\n" + last_text + "\n\n")
 
     f.close
-    await bot.send_document(chat_id=m.chat.id, document="temp/srt.srt" ,caption=m.video.file_name, file_name=m.video.file_name.rsplit('.', 1)[0]+".srt")
+    await bot.send_document(chat_id=m.chat.id, document="temp/srt.srt", file_name=media.file_name.rsplit('.', 1)[0]+".srt")
     os.remove("temp/srt.srt")
 
 
