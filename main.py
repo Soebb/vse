@@ -51,7 +51,7 @@ async def start(bot, update):
 @Bot.on_message(filters.command(["cancel"]))
 async def cancel_progress(_, m):
     try:
-        os.remove("temp/vid.mp4")
+        shutil.rmtree("temp/")
     except:
         await m.reply("can't cancel. maybe there wasn't any progress in process.")
     else:
@@ -86,14 +86,14 @@ async def main(bot, m):
     for interval in intervals:
         command = os.system(f'ffmpeg -ss {interval} -i "{file_dl_path}" -pix_fmt yuvj422p -vframes 1 -q:v 2 -y temp/output.jpg')
         if command != 0:
-            return
+            return await ms.delete()
         try:
             im = Image.open("temp/output.jpg")
             text = pytesseract.image_to_string(im, LANG)
         except:
             text = None
             pass
-        if not "-" in str(time):
+        if time >= 0:
             time -= 0.1
             try:
                 await ms.edit(str(time)[:5])
