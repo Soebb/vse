@@ -1,6 +1,6 @@
 import requests
 import numpy as np
-import os, datetime, subprocess
+import os, datetime, subprocess, shutil
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import pytesseract
