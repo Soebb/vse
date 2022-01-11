@@ -1,7 +1,6 @@
-
 import requests
 import numpy as np
-import os, datetime
+import os, datetime, subprocess
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import pytesseract
@@ -48,6 +47,15 @@ async def start(bot, update):
         disable_web_page_preview=True,
         reply_markup=reply_markup
     )
+
+@Bot.on_message(filters.command(["cancel"]))
+async def cancel_progress(_, m):
+    try:
+        os.remove("temp/vid.mp4")
+    except:
+        await m.reply("can't cancel. maybe there wasn't any progress in process.")
+    else:
+        await m.reply("canceled successfully.")
 
 
 #language
