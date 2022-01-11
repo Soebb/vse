@@ -118,7 +118,7 @@ async def main(bot, m):
             f.write(str(sub_count+1) + "\n" + ftime + " --> " + ttime + "\n" + last_text + "\n\n")
 
     f.close
-    await bot.send_document(chat_id=m.chat.id, document="temp/srt.srt" ,caption=m.video.file_name, file_name=m.video.file_name+".srt")
+    await bot.send_document(chat_id=m.chat.id, document="temp/srt.srt" ,caption=m.video.file_name, file_name=m.video.file_name.rsplit('.', 1)[0]+".srt")
     os.remove("temp/srt.srt")
 
 
