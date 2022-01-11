@@ -1,6 +1,6 @@
 import requests
 import numpy as np
-import os, datetime, subprocess, shutil, json
+import os, datetime, subprocess, shutil, json, math
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import pytesseract
@@ -81,7 +81,7 @@ async def main(bot, m):
     duplicate = True
     lastsub_time = 0
     intervals = [round(num, 2) for num in np.linspace(0,duration,(duration-0)*int(1/0.1)+1).tolist()]
-    time = duration
+    time_to_finish = duration
     # Extract frames every 100 milliseconds for ocr
     for interval in intervals:
         command = os.system(f'ffmpeg -ss {interval} -i "{file_dl_path}" -pix_fmt yuvj422p -vframes 1 -q:v 2 -y temp/output.jpg')
@@ -93,10 +93,16 @@ async def main(bot, m):
         except:
             text = None
             pass
-        if time >= 0:
-            time -= 0.1
+        if time_to_finish > 0:
+            time_to_finish -= 0.1
+            percentage = (duration - time_to_finish) * 100 / duration
+            progress = "[{0}{1}]\nPercentage : {2}%\n\n".format(
+                ''.join(["●" for i in range(math.floor(percentage / 5))]),
+                ''.join(["○" for i in range(20 - math.floor(percentage / 5))]),
+                round(percentage, 2)
+            )
             try:
-                await ms.edit(str(time)[:5])
+                await ms.edit(progress + "`For cancel progress, send` /cancel", parse_mode='md')
             except:
                 pass
         if text != None and text[:1].isspace() == False :
