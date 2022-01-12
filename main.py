@@ -63,13 +63,17 @@ LANG="fas"
 
 @Bot.on_message(filters.private & (filters.video | filters.document))
 async def main(bot, m):
+    ms = await m.reply("downloading")
     try:
         shutil.rmtree("temp/")
     except:
         pass
-    os.makedirs("temp/")
+    time.sleep(2)
+    try:
+        os.makedirs("temp/")
+    except:
+        pass
     media = m.video or m.document
-    ms = await m.reply("downloading")
     await m.download("temp/vid.mp4")
     await ms.edit("`Now Extracting..`\n\n for cancel progress, send /cancel", parse_mode='md')
     if m.video:
